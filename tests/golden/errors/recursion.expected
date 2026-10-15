@@ -1,0 +1,1 @@
+recursion.dg:3:1: error: recursion is not supported (down -> down)

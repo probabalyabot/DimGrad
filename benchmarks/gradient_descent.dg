@@ -1,0 +1,25 @@
+// Gradient descent on a spring potential. The learning rate is declared with `?`
+// and the compiler must find that it has the unit of x^2 divided by the unit of f [25].
+
+unit kg, m, s;
+unit J = kg*m^2/s^2;
+const stiffness: J/m^2 = 50.0;
+const rest: m = 0.2;
+
+fn f(x: m) -> J {
+    return 0.5 * stiffness * (x - rest)^2;
+}
+
+grad f wrt x;
+
+fn gd_step(x: m, eta: ?) -> m {
+    return x - eta * f_grad_x(x);
+}
+
+fn minimize(x0: m, eta: ?) -> m {
+    let x = x0;
+    for i in 0..25 {
+        x = gd_step(x, eta);
+    }
+    return x;
+}

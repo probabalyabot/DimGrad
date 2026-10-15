@@ -1,0 +1,23 @@
+// Newton's law of cooling with explicit Euler. The step size of euler_step is
+// declared with `?`; it must come out as a time.
+
+unit K, s;
+
+fn cooling_rate(T: K, ambient: K, r: 1/s) -> K/s {
+    return -r * (T - ambient);
+}
+
+fn euler_step(T: K, ambient: K, r: 1/s, h: ?) -> K {
+    return T + h * cooling_rate(T, ambient, r);
+}
+
+fn cool(T0: K, ambient: K, r: 1/s, h: s) -> K {
+    let T = T0;
+    for i in 0..60 {
+        T = euler_step(T, ambient, r, h);
+    }
+    return T;
+}
+
+grad cool wrt T0;
+grad cool wrt r;

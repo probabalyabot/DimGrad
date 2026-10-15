@@ -1,0 +1,23 @@
+// Vertical launch with quadratic air drag, integrated with fixed-step Euler.
+// k is the drag coefficient divided by the mass, so k*v^2 is an acceleration.
+
+unit kg, m, s;
+const g: m/s^2 = 9.81;
+
+fn height(v0: m/s, k: 1/m, dt: s) -> m {
+    let y = 0;
+    let v = v0;
+    for i in 0..200 {
+        let drag = k * v * v;
+        if (v > 0) {
+            v = v - (g + drag) * dt;
+        } else {
+            v = v - (g - drag) * dt;
+        }
+        y = y + v * dt;
+    }
+    return y;
+}
+
+grad height wrt v0;
+grad height wrt k;

@@ -1,0 +1,24 @@
+// Pendulum: angle after 200 semi-implicit Euler steps, and the small-angle period.
+// Angles are unitless (radians).
+
+unit kg, m, s;
+const g: m/s^2 = 9.81;
+const pi: 1 = 3.141592653589793;
+
+fn angle(theta0: 1, omega0: 1/s, len: m, dt: s) -> 1 {
+    let theta = theta0;
+    let omega = omega0;
+    for i in 0..200 {
+        omega = omega - g / len * sin(theta) * dt;
+        theta = theta + omega * dt;
+    }
+    return theta;
+}
+
+fn period(len: m) -> s {
+    return 2 * pi * sqrt(len / g);
+}
+
+grad angle wrt theta0;
+grad angle wrt len;
+grad period wrt len;

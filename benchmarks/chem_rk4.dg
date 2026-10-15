@@ -1,0 +1,23 @@
+// Second-order reaction A + A -> products, d[A]/dt = -k*[A]^2, classical Runge-Kutta.
+
+unit mol, m, s;
+unit M = mol/m^3;
+
+fn rate(a: M, k: 1/M/s) -> M/s {
+    return -k * a^2;
+}
+
+fn concentration(a0: M, k: 1/M/s, dt: s) -> M {
+    let a = a0;
+    for i in 0..50 {
+        let k1 = rate(a, k);
+        let k2 = rate(a + 0.5 * dt * k1, k);
+        let k3 = rate(a + 0.5 * dt * k2, k);
+        let k4 = rate(a + dt * k3, k);
+        a = a + dt / 6 * (k1 + 2 * k2 + 2 * k3 + k4);
+    }
+    return a;
+}
+
+grad concentration wrt a0;
+grad concentration wrt k;

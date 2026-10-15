@@ -1,0 +1,18 @@
+// Thruster impulse arrives in pound-force seconds and must be converted to
+// newton seconds: the unit mix-up behind the Mars Climate Orbiter loss [1].
+
+unit kg, m, s, lbf;
+unit N = kg*m/s^2;
+const lbf_to_N: N/lbf = 4.4482216152605;
+
+fn delta_v(impulse: lbf*s, mass: kg) -> m/s {
+    return impulse * lbf_to_N / mass;
+}
+
+fn position_error(impulse: lbf*s, mass: kg, coast: s) -> m {
+    return delta_v(impulse, mass) * coast;
+}
+
+grad delta_v wrt impulse;
+grad position_error wrt impulse;
+grad position_error wrt mass;

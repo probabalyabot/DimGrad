@@ -1,0 +1,186 @@
+benchmark,mutant,category,function,line,mutation,detected,same_line,same_function,message
+black_scholes,1,3,call_price,7,vol  ->  vol * mutant_factor,True,False,True,cannot subtract usd/yr from yr/usd
+black_scholes,2,2,call_price,7,sqrt(expiry)  ->  cbrt(expiry),True,False,True,cannot subtract 1/yr^(1/6) from yr^(1/6)
+black_scholes,3,3,call_price,7,expiry  ->  expiry * mutant_factor,True,False,True,cannot subtract usd^(1/2)/yr^(1/2) from yr^(1/2)/usd^(1/2)
+black_scholes,4,1,call_price,8,log(spot / strike) + (rate + 0.5 * vol^2) * expiry  ->  log(spot / strike) + spot,True,True,True,cannot add 1 and usd
+black_scholes,5,3,call_price,8,spot  ->  spot * mutant_factor,True,True,True,the argument of 'log' must be unitless but has unit usd/yr
+black_scholes,6,2,call_price,8,(rate + 0.5 * vol^2) * expiry  ->  (rate + 0.5 * vol^2) * expiry^2,True,True,True,cannot add 1 and yr
+black_scholes,7,1,call_price,8,rate + 0.5 * vol^2  ->  rate + spot,True,True,True,cannot add 1/yr and usd
+black_scholes,8,2,call_price,8,vol^2  ->  vol^3,True,True,True,cannot add 1/yr and 1/yr^(3/2)
+black_scholes,9,1,call_price,9,d1 - sd  ->  d1 - spot,True,True,True,cannot subtract usd from 1
+black_scholes,10,1,call_price,10,spot * normcdf(d1) - strike * exp(-rate * expiry) * normcdf(d2)  ->  spot * normcdf(d1) - rate,True,True,True,cannot subtract 1/yr from usd
+black_scholes,11,2,call_price,10,-rate * expiry  ->  -rate * expiry^2,True,True,True,the argument of 'exp' must be unitless but has unit yr
+chem_rk4,1,3,rate,7,k  ->  k * mutant_factor,True,True,True,function 'rate' returns mol/(m^3·s) but this value has unit mol^2/(m^3·s^2)
+chem_rk4,2,2,rate,7,a^2  ->  a^3,True,True,True,function 'rate' returns mol/(m^3·s) but this value has unit mol^2/(m^6·s)
+chem_rk4,3,3,rate,7,a  ->  a * mutant_factor,True,True,True,function 'rate' returns mol/(m^3·s) but this value has unit mol^3/(m^3·s^3)
+chem_rk4,4,3,concentration,11,a0  ->  a0 * mutant_factor,True,False,True,argument 1 of 'rate' (parameter 'a') must have unit M (= mol/m^3) but has unit mol^2/(m^3·s)
+chem_rk4,5,4,concentration,13,"rate(a, k)  ->  rate(k, a)",True,True,True,argument 2 of 'rate' (parameter 'k') must have unit m^3/(mol·s) but has unit M (= mol/m^3)
+chem_rk4,6,3,concentration,13,k  ->  k * mutant_factor,True,True,True,argument 2 of 'rate' (parameter 'k') must have unit m^3/(mol·s) but has unit m^3/s^2
+chem_rk4,7,4,concentration,14,"rate(a + 0.5 * dt * k1, k)  ->  rate(k, a + 0.5 * dt * k1)",True,True,True,argument 2 of 'rate' (parameter 'k') must have unit m^3/(mol·s) but has unit M (= mol/m^3)
+chem_rk4,8,1,concentration,14,a + 0.5 * dt * k1  ->  a + k,True,True,True,cannot add M (= mol/m^3) and m^3/(mol·s)
+chem_rk4,9,2,concentration,14,0.5 * dt * k1  ->  0.5 * dt * k1^2,True,True,True,cannot add M (= mol/m^3) and mol^2/(m^6·s)
+chem_rk4,10,2,concentration,14,0.5 * dt  ->  0.5 * dt^2,True,True,True,cannot add M (= mol/m^3) and mol·s/m^3
+chem_rk4,11,3,concentration,14,dt  ->  dt * mutant_factor,True,True,True,cannot add M (= mol/m^3) and mol^2/(m^3·s)
+chem_rk4,12,4,concentration,15,"rate(a + 0.5 * dt * k2, k)  ->  rate(k, a + 0.5 * dt * k2)",True,True,True,argument 2 of 'rate' (parameter 'k') must have unit m^3/(mol·s) but has unit M (= mol/m^3)
+chem_rk4,13,1,concentration,15,a + 0.5 * dt * k2  ->  a + k,True,True,True,cannot add M (= mol/m^3) and m^3/(mol·s)
+chem_rk4,14,2,concentration,15,0.5 * dt * k2  ->  0.5 * dt * k2^2,True,True,True,cannot add M (= mol/m^3) and mol^2/(m^6·s)
+chem_rk4,15,4,concentration,16,"rate(a + dt * k3, k)  ->  rate(k, a + dt * k3)",True,True,True,argument 2 of 'rate' (parameter 'k') must have unit m^3/(mol·s) but has unit M (= mol/m^3)
+chem_rk4,16,1,concentration,16,a + dt * k3  ->  a + k,True,True,True,cannot add M (= mol/m^3) and m^3/(mol·s)
+chem_rk4,17,1,concentration,17,a + dt / 6 * (k1 + 2 * k2 + 2 * k3 + k4)  ->  a + k,True,True,True,cannot add M (= mol/m^3) and m^3/(mol·s)
+chem_rk4,18,1,concentration,17,k1 + 2 * k2 + 2 * k3 + k4  ->  k1 + 2 * k2 + 2 * k3 + a0,True,True,True,cannot add mol/(m^3·s) and M (= mol/m^3)
+chem_rk4,19,1,concentration,17,k1 + 2 * k2 + 2 * k3  ->  k1 + 2 * k2 + a0,True,True,True,cannot add mol/(m^3·s) and M (= mol/m^3)
+chem_rk4,20,1,concentration,17,k1 + 2 * k2  ->  k1 + a0,True,True,True,cannot add mol/(m^3·s) and M (= mol/m^3)
+climate_ebm,1,3,temperature,11,T0  ->  T0 * mutant_factor,True,False,True,cannot subtract kg^5/(s^3·K^4) from kg/s^3
+climate_ebm,2,3,temperature,13,solar  ->  solar * mutant_factor,True,False,True,cannot subtract kg/s^3 from kg^2/(s^3·K)
+climate_ebm,3,1,temperature,13,1 - albedo  ->  1 - T0,True,True,True,cannot subtract K from 1
+climate_ebm,4,3,temperature,13,albedo  ->  albedo * mutant_factor,True,True,True,cannot subtract kg/K from 1
+climate_ebm,5,2,temperature,14,emissivity * sigma  ->  emissivity * sigma^2,True,False,True,cannot subtract kg^2/(s^6·K^4) from kg/s^3
+climate_ebm,6,3,temperature,14,emissivity * sigma  ->  emissivity,True,False,True,cannot subtract K^4 from kg/s^3
+climate_ebm,7,2,temperature,14,T^4  ->  T^5,True,False,True,cannot subtract kg·K/s^3 from kg/s^3
+climate_ebm,8,1,temperature,15,T + dt * (absorbed - emitted) / heat_capacity  ->  T + solar,True,True,True,cannot add K and kg/s^3
+climate_ebm,9,1,temperature,15,absorbed - emitted  ->  absorbed - T0,True,True,True,cannot subtract K from kg/s^3
+drag_power,1,2,power,8,0.5 * rho * drag_coeff * area  ->  0.5 * rho * drag_coeff * area^2,True,True,True,function 'power' returns W (= kg·m^2/s^3) but this value has unit kg·m^4/s^3
+drag_power,2,2,power,8,0.5 * rho  ->  0.5 * rho^2,True,True,True,function 'power' returns W (= kg·m^2/s^3) but this value has unit kg^2/(m·s^3)
+drag_power,3,3,power,8,rho  ->  rho * mutant_factor,True,True,True,function 'power' returns W (= kg·m^2/s^3) but this value has unit kg^2·m^2/s^4
+drag_power,4,3,power,8,area  ->  area * mutant_factor,True,True,True,function 'power' returns W (= kg·m^2/s^3) but this value has unit kg^2·m^2/s^4
+drag_power,5,2,power,8,v^3  ->  v^4,True,True,True,function 'power' returns W (= kg·m^2/s^3) but this value has unit kg·m^3/s^4
+drag_power,6,3,power,8,v  ->  v * mutant_factor,True,True,True,function 'power' returns W (= kg·m^2/s^3) but this value has unit kg^4·m^2/s^6
+drag_power,7,2,top_speed,12,cbrt(2 * p / (rho * drag_coeff * area))  ->  sqrt(2 * p / (rho * drag_coeff * area)),True,True,True,function 'top_speed' returns m/s but this value has unit m^(3/2)/s^(3/2)
+drag_power,8,2,top_speed,12,2 * p  ->  2 * p^2,True,True,True,function 'top_speed' returns m/s but this value has unit kg^(1/3)·m^(5/3)/s^2
+drag_power,9,3,top_speed,12,p  ->  p * mutant_factor,True,True,True,function 'top_speed' returns m/s but this value has unit kg^(1/3)·m/s^(4/3)
+drag_power,10,2,top_speed,12,rho * drag_coeff * area  ->  rho * drag_coeff * area^2,True,True,True,function 'top_speed' returns m/s but this value has unit m^(1/3)/s
+drag_power,11,3,top_speed,12,rho  ->  rho * mutant_factor,True,True,True,function 'top_speed' returns m/s but this value has unit m/(kg^(1/3)·s^(2/3))
+drag_power,12,3,top_speed,12,area  ->  area * mutant_factor,True,True,True,function 'top_speed' returns m/s but this value has unit m/(kg^(1/3)·s^(2/3))
+euler_cooling,1,3,cooling_rate,7,r  ->  r * mutant_factor,True,True,True,function 'cooling_rate' returns K/s but this value has unit K^2/s^2
+euler_cooling,2,1,cooling_rate,7,T - ambient  ->  T - r,True,True,True,cannot subtract 1/s from K
+euler_cooling,3,3,cooling_rate,7,T  ->  T * mutant_factor,True,True,True,cannot subtract K from K^2/s
+euler_cooling,4,3,cooling_rate,7,ambient  ->  ambient * mutant_factor,True,True,True,cannot subtract K^2/s from K
+euler_cooling,5,1,euler_step,11,"T + h * cooling_rate(T, ambient, r)  ->  T + r",True,True,True,cannot infer the unit of parameter 'h': nothing in 'euler_step' determines it
+euler_cooling,6,3,euler_step,11,T  ->  T * mutant_factor,True,True,True,function 'euler_step' returns K but this value has unit K^2/s
+euler_cooling,7,3,euler_step,11,h  ->  h * mutant_factor,True,False,False,argument 4 of 'euler_step' (parameter 'h') must have unit s^2/K but has unit s
+euler_cooling,8,4,euler_step,11,"cooling_rate(T, ambient, r)  ->  cooling_rate(r, ambient, T)",True,True,True,argument 3 of 'cooling_rate' (parameter 'r') must have unit 1/s but has unit K
+euler_cooling,9,3,euler_step,11,T  ->  T * mutant_factor,True,True,True,argument 1 of 'cooling_rate' (parameter 'T') must have unit K but has unit K^2/s
+euler_cooling,10,3,cool,15,T0  ->  T0 * mutant_factor,True,False,True,"cannot assign K to 'T', which has unit K^2/s"
+euler_cooling,11,4,cool,17,"euler_step(T, ambient, r, h)  ->  euler_step(r, ambient, T, h)",True,True,True,argument 3 of 'euler_step' (parameter 'r') must have unit 1/s but has unit K
+euler_cooling,12,3,cool,17,ambient  ->  ambient * mutant_factor,True,True,True,argument 2 of 'euler_step' (parameter 'ambient') must have unit K but has unit K^2/s
+euler_cooling,13,3,cool,17,r  ->  r * mutant_factor,True,True,True,argument 3 of 'euler_step' (parameter 'r') must have unit 1/s but has unit K/s^2
+gradient_descent,1,2,f,10,0.5 * stiffness  ->  0.5 * stiffness^2,True,True,True,function 'f' returns J (= kg·m^2/s^2) but this value has unit kg^2·m^2/s^4
+gradient_descent,2,3,f,10,0.5 * stiffness  ->  0.5,True,True,True,function 'f' returns J (= kg·m^2/s^2) but this value has unit m^2
+gradient_descent,3,2,f,10,(x - rest)^2  ->  (x - rest)^3,True,True,True,function 'f' returns J (= kg·m^2/s^2) but this value has unit kg·m^3/s^2
+gradient_descent,4,1,f,10,x - rest  ->  x - stiffness,True,True,True,cannot subtract kg/s^2 from m
+gradient_descent,5,3,f,10,x  ->  x * mutant_factor,True,True,True,cannot subtract m from kg·m/s
+gradient_descent,6,1,gd_step,16,x - eta * f_grad_x(x)  ->  x - eta,False,False,False,
+gradient_descent,7,3,gd_step,16,x  ->  x * mutant_factor,True,True,True,function 'gd_step' returns m but this value has unit kg·m/s
+gradient_descent,8,3,gd_step,16,eta  ->  eta * mutant_factor,False,False,False,
+gradient_descent,9,3,gd_step,16,x  ->  x * mutant_factor,True,True,True,argument 1 of 'f_grad_x' (parameter 'x') must have unit m but has unit kg·m/s
+gradient_descent,10,3,minimize,20,x0  ->  x0 * mutant_factor,True,False,True,"cannot assign m to 'x', which has unit kg·m/s"
+gradient_descent,11,4,minimize,22,"gd_step(x, eta)  ->  gd_step(eta, x)",True,True,True,argument 2 of 'gd_step' (parameter 'eta') must have unit s^2/kg but has unit m
+gradient_descent,12,3,minimize,22,eta  ->  eta * mutant_factor,False,False,False,
+gradient_descent,13,5,gd_step,15,parameter x: m  ->  kg·m,True,False,True,function 'gd_step' returns m but this value has unit kg·m
+gradient_descent,14,5,gd_step,15,parameter eta: s^2/kg  ->  s^2,True,False,True,cannot subtract kg·m from m
+gradient_descent,15,5,minimize,19,parameter x0: m  ->  kg·m,True,False,True,"cannot assign m to 'x', which has unit kg·m"
+gradient_descent,16,5,minimize,19,parameter eta: s^2/kg  ->  s^2,True,False,True,argument 2 of 'gd_step' (parameter 'eta') must have unit s^2/kg but has unit s^2
+gravity,1,2,potential,10,-G * m1 * m2  ->  -G * m1 * m2^2,True,True,True,function 'potential' returns J (= kg·m^2/s^2) but this value has unit kg^2·m^2/s^2
+gravity,2,2,potential,10,-G * m1  ->  -G * m1^2,True,True,True,function 'potential' returns J (= kg·m^2/s^2) but this value has unit kg^2·m^2/s^2
+gravity,3,3,potential,10,m1  ->  m1 * mutant_factor,True,True,True,function 'potential' returns J (= kg·m^2/s^2) but this value has unit kg^2·m^2/s^3
+gravity,4,3,potential,10,m2  ->  m2 * mutant_factor,True,True,True,function 'potential' returns J (= kg·m^2/s^2) but this value has unit kg^2·m^2/s^3
+gravity,5,3,potential,10,r  ->  r * mutant_factor,True,True,True,function 'potential' returns J (= kg·m^2/s^2) but this value has unit m^2/s
+gravity,6,2,orbital_speed,14,sqrt(G * central / r)  ->  cbrt(G * central / r),True,True,True,function 'orbital_speed' returns m/s but this value has unit m^(2/3)/s^(2/3)
+gravity,7,2,orbital_speed,14,G * central  ->  G * central^2,True,True,True,function 'orbital_speed' returns m/s but this value has unit kg^(1/2)·m/s
+gravity,8,3,orbital_speed,14,G * central  ->  central,True,True,True,function 'orbital_speed' returns m/s but this value has unit kg^(1/2)/m^(1/2)
+gravity,9,3,orbital_speed,14,central  ->  central * mutant_factor,True,True,True,function 'orbital_speed' returns m/s but this value has unit kg^(1/2)·m/s^(3/2)
+gravity,10,3,orbital_speed,14,r  ->  r * mutant_factor,True,True,True,function 'orbital_speed' returns m/s but this value has unit m/(kg^(1/2)·s^(1/2))
+kinetic_energy,1,2,energy,8,0.5 * mass * v * v  ->  0.5 * mass * v * v^2,True,True,True,function 'energy' returns J (= kg·m^2/s^2) but this value has unit kg·m^3/s^3
+kinetic_energy,2,2,energy,8,0.5 * mass * v  ->  0.5 * mass * v^2,True,True,True,function 'energy' returns J (= kg·m^2/s^2) but this value has unit kg·m^3/s^3
+kinetic_energy,3,2,energy,8,0.5 * mass  ->  0.5 * mass^2,True,True,True,function 'energy' returns J (= kg·m^2/s^2) but this value has unit kg^2·m^2/s^2
+kinetic_energy,4,3,energy,8,mass  ->  mass * mutant_factor,True,True,True,function 'energy' returns J (= kg·m^2/s^2) but this value has unit kg^2·m^2/s^3
+kinetic_energy,5,3,energy,8,v  ->  v * mutant_factor,True,True,True,function 'energy' returns J (= kg·m^2/s^2) but this value has unit kg^2·m^2/s^3
+kinetic_energy,6,3,energy,8,v  ->  v * mutant_factor,True,True,True,function 'energy' returns J (= kg·m^2/s^2) but this value has unit kg^2·m^2/s^3
+newton_root,1,1,g,7,x^2 - a  ->  x^2 - x,True,True,True,cannot subtract m from m^2
+newton_root,2,2,g,7,x^2  ->  x^3,True,True,True,cannot subtract m^2 from m^3
+newton_root,3,3,g,7,x  ->  x * mutant_factor,True,True,True,cannot subtract m^2 from m^4
+newton_root,4,3,g,7,a  ->  a * mutant_factor,True,True,True,cannot subtract m^3 from m^2
+newton_root,5,1,newton_step,13,"x - g(x, a) / g_grad_x(x, a)  ->  x - a",True,True,True,cannot subtract m^2 from m
+newton_root,6,3,newton_step,13,x  ->  x * mutant_factor,True,True,True,cannot subtract m from m^2
+newton_root,7,4,newton_step,13,"g(x, a)  ->  g(a, x)",True,True,True,argument 2 of 'g' (parameter 'a') must have unit m^2 but has unit m
+newton_root,8,3,newton_step,13,x  ->  x * mutant_factor,True,True,True,argument 1 of 'g' (parameter 'x') must have unit m but has unit m^2
+newton_root,9,3,newton_step,13,a  ->  a * mutant_factor,True,True,True,argument 2 of 'g' (parameter 'a') must have unit m^2 but has unit m^3
+newton_root,10,4,newton_step,13,"g_grad_x(x, a)  ->  g_grad_x(a, x)",True,True,True,argument 2 of 'g_grad_x' (parameter 'a') must have unit m^2 but has unit m
+newton_root,11,5,newton_step,13,"g_grad_x(x, a)  ->  g_grad_a(x, a)",True,True,True,cannot subtract m^2 from m
+newton_root,12,3,root,17,x0  ->  x0 * mutant_factor,True,False,True,"cannot assign m to 'x', which has unit m^2"
+newton_root,13,4,root,19,"newton_step(x, a)  ->  newton_step(a, x)",True,True,True,argument 2 of 'newton_step' (parameter 'a') must have unit m^2 but has unit m
+newton_root,14,3,root,19,a  ->  a * mutant_factor,True,True,True,argument 2 of 'newton_step' (parameter 'a') must have unit m^2 but has unit m^3
+newton_root,15,5,newton_step,12,parameter x: m  ->  m^2,True,False,True,cannot subtract m from m^2
+newton_root,16,5,newton_step,12,parameter a: m^2  ->  m^3,True,False,True,argument 2 of 'g' (parameter 'a') must have unit m^2 but has unit m^3
+newton_root,17,5,root,16,parameter x0: m  ->  m^2,True,False,True,"cannot assign m to 'x', which has unit m^2"
+newton_root,18,5,root,16,parameter a: m^2  ->  m^3,True,False,True,argument 2 of 'newton_step' (parameter 'a') must have unit m^2 but has unit m^3
+pendulum,1,3,angle,9,theta0  ->  theta0 * mutant_factor,True,False,True,the argument of 'sin' must be unitless but has unit kg/s
+pendulum,2,3,angle,10,omega0  ->  omega0 * mutant_factor,True,False,True,cannot subtract 1/s from kg/s^2
+pendulum,3,1,angle,12,omega - g / len * sin(theta) * dt  ->  omega - theta0,True,True,True,cannot subtract 1 from 1/s
+pendulum,4,2,angle,12,g / len * sin(theta) * dt  ->  g / len * sin(theta) * dt^2,True,True,True,cannot subtract 1 from 1/s
+pendulum,5,3,angle,12,len  ->  len * mutant_factor,True,True,True,cannot subtract 1/kg from 1/s
+pendulum,6,1,angle,13,theta + omega * dt  ->  theta + omega0,True,True,True,cannot add 1 and 1/s
+pendulum,7,2,angle,13,omega * dt  ->  omega * dt^2,True,True,True,cannot add 1 and s
+pendulum,8,2,period,19,sqrt(len / g)  ->  cbrt(len / g),True,True,True,function 'period' returns s but this value has unit s^(2/3)
+pendulum,9,3,period,19,len / g  ->  len,True,True,True,function 'period' returns s but this value has unit m^(1/2)
+pendulum,10,3,period,19,len  ->  len * mutant_factor,True,True,True,function 'period' returns s but this value has unit kg^(1/2)·s^(1/2)
+projectile_drag,1,3,height,9,v0  ->  v0 * mutant_factor,True,False,True,cannot add m/s^2 and kg^2·m/s^4
+projectile_drag,2,2,height,11,k * v * v  ->  k * v * v^2,True,False,True,cannot add m/s^2 and m^2/s^3
+projectile_drag,3,2,height,11,k * v  ->  k * v^2,True,False,True,cannot add m/s^2 and m^2/s^3
+projectile_drag,4,3,height,11,k  ->  k * mutant_factor,True,False,True,cannot add m/s^2 and kg·m/s^3
+projectile_drag,5,1,height,13,v - (g + drag) * dt  ->  v - k,True,True,True,cannot subtract 1/m from m/s
+projectile_drag,6,2,height,13,(g + drag) * dt  ->  (g + drag) * dt^2,True,True,True,cannot subtract m from m/s
+projectile_drag,7,1,height,13,g + drag  ->  g + v0,True,True,True,cannot add m/s^2 and m/s
+projectile_drag,8,3,height,13,dt  ->  dt * mutant_factor,True,True,True,cannot subtract kg·m/s^2 from m/s
+projectile_drag,9,1,height,15,v - (g - drag) * dt  ->  v - k,True,True,True,cannot subtract 1/m from m/s
+projectile_drag,10,1,height,15,g - drag  ->  g - v0,True,True,True,cannot subtract m/s from m/s^2
+projectile_drag,11,1,height,17,y + v * dt  ->  y + v0,True,False,True,function 'height' returns m but this value has unit m/s
+range_newton,1,1,miss,9,v^2 * sin(2 * angle) / g - target  ->  v^2 * sin(2 * angle) / g - v,True,True,True,cannot subtract m/s from m
+range_newton,2,3,miss,9,v^2 * sin(2 * angle) / g  ->  v^2 * sin(2 * angle),True,True,True,cannot subtract m from m^2/s^2
+range_newton,3,2,miss,9,v^2  ->  v^3,True,True,True,cannot subtract m from m^2/s
+range_newton,4,3,miss,9,v  ->  v * mutant_factor,True,True,True,cannot subtract m from m^3/s^2
+range_newton,5,3,miss,9,angle  ->  angle * mutant_factor,True,True,True,the argument of 'sin' must be unitless but has unit m/s
+range_newton,6,3,miss,9,target  ->  target * mutant_factor,True,True,True,cannot subtract m^2/s from m
+range_newton,7,1,aim_step,15,"v - miss(v, angle, target) / miss_grad_v(v, angle, target)  ->  v - angle",True,True,True,cannot subtract 1 from m/s
+range_newton,8,3,aim_step,15,v  ->  v * mutant_factor,True,True,True,cannot subtract m/s from m^2/s^2
+range_newton,9,4,aim_step,15,"miss(v, angle, target)  ->  miss(angle, v, target)",True,True,True,argument 2 of 'miss' (parameter 'angle') must have unit 1 but has unit m/s
+range_newton,10,3,aim_step,15,v  ->  v * mutant_factor,True,True,True,argument 1 of 'miss' (parameter 'v') must have unit m/s but has unit m^2/s^2
+range_newton,11,3,aim_step,15,angle  ->  angle * mutant_factor,True,True,True,argument 2 of 'miss' (parameter 'angle') must have unit 1 but has unit m/s
+range_newton,12,4,aim_step,15,"miss_grad_v(v, angle, target)  ->  miss_grad_v(angle, v, target)",True,True,True,argument 2 of 'miss_grad_v' (parameter 'angle') must have unit 1 but has unit m/s
+range_newton,13,5,aim_step,15,"miss_grad_v(v, angle, target)  ->  miss_grad_angle(v, angle, target)",True,True,True,cannot subtract 1 from m/s
+range_newton,14,5,aim_step,15,"miss_grad_v(v, angle, target)  ->  miss_grad_target(v, angle, target)",True,True,True,cannot subtract m from m/s
+range_newton,15,3,aim,19,v0  ->  v0 * mutant_factor,True,False,True,"cannot assign m/s to 'v', which has unit m^2/s^2"
+range_newton,16,4,aim,21,"aim_step(v, angle, target)  ->  aim_step(angle, v, target)",True,True,True,argument 2 of 'aim_step' (parameter 'angle') must have unit 1 but has unit m/s
+range_newton,17,3,aim,21,angle  ->  angle * mutant_factor,True,True,True,argument 2 of 'aim_step' (parameter 'angle') must have unit 1 but has unit m/s
+range_newton,18,3,aim,21,target  ->  target * mutant_factor,True,True,True,argument 3 of 'aim_step' (parameter 'target') must have unit m but has unit m^2/s
+range_newton,19,5,aim_step,14,parameter v: m/s  ->  m^2/s,True,False,True,cannot subtract m/s from m^2/s
+range_newton,20,5,aim_step,14,parameter angle: 1  ->  m,True,False,True,argument 2 of 'miss' (parameter 'angle') must have unit 1 but has unit m
+range_newton,21,5,aim_step,14,parameter target: m  ->  m^2,True,False,True,argument 3 of 'miss' (parameter 'target') must have unit m but has unit m^2
+range_newton,22,5,aim,18,parameter v0: m/s  ->  m^2/s,True,False,True,"cannot assign m/s to 'v', which has unit m^2/s"
+range_newton,23,5,aim,18,parameter angle: 1  ->  m,True,False,True,argument 2 of 'aim_step' (parameter 'angle') must have unit 1 but has unit m
+range_newton,24,5,aim,18,parameter target: m  ->  m^2,True,False,True,argument 3 of 'aim_step' (parameter 'target') must have unit m but has unit m^2
+spring_mass,1,3,position,8,x0  ->  x0 * mutant_factor,True,False,True,cannot add m/s and N (= kg·m/s^2)
+spring_mass,2,3,position,9,v0  ->  v0 * mutant_factor,True,False,True,cannot add N (= kg·m/s^2) and m/s
+spring_mass,3,2,position,11,-k * x  ->  -k * x^2,True,False,True,cannot add m/s and m^2/s
+spring_mass,4,3,position,11,k  ->  k * mutant_factor,True,False,True,cannot add m/s and N (= kg·m/s^2)
+spring_mass,5,1,position,12,v + a * dt  ->  v + x0,True,True,True,cannot add m/s and m
+spring_mass,6,2,position,12,a * dt  ->  a * dt^2,True,True,True,cannot add m/s and m
+spring_mass,7,1,position,13,x + v * dt  ->  x + v0,True,True,True,cannot add m and m/s
+spring_mass,8,2,position,13,v * dt  ->  v * dt^2,True,True,True,cannot add m and m·s
+spring_mass,9,1,total_energy,19,0.5 * mass * v^2 + 0.5 * k * x^2  ->  0.5 * mass * v^2 + x,True,True,True,cannot add J (= kg·m^2/s^2) and m
+spring_mass,10,2,total_energy,19,0.5 * mass  ->  0.5 * mass^2,True,True,True,cannot add kg^2·m^2/s^2 and J (= kg·m^2/s^2)
+spring_mass,11,3,total_energy,19,mass  ->  mass * mutant_factor,True,True,True,cannot add kg^2·m^2/s^3 and J (= kg·m^2/s^2)
+spring_mass,12,2,total_energy,19,v^2  ->  v^3,True,True,True,cannot add kg·m^3/s^3 and J (= kg·m^2/s^2)
+spring_mass,13,3,total_energy,19,v  ->  v * mutant_factor,True,True,True,cannot add kg^3·m^2/s^4 and J (= kg·m^2/s^2)
+spring_mass,14,2,total_energy,19,0.5 * k  ->  0.5 * k^2,True,True,True,cannot add J (= kg·m^2/s^2) and kg^2·m^2/s^4
+spring_mass,15,3,total_energy,19,k  ->  k * mutant_factor,True,True,True,cannot add J (= kg·m^2/s^2) and kg^2·m^2/s^3
+spring_mass,16,2,total_energy,19,x^2  ->  x^3,True,True,True,cannot add J (= kg·m^2/s^2) and kg·m^3/s^2
+thrust_conversion,1,2,delta_v,9,impulse * lbf_to_N  ->  impulse * lbf_to_N^2,True,True,True,function 'delta_v' returns m/s but this value has unit kg·m^2/(s^3·lbf)
+thrust_conversion,2,3,delta_v,9,impulse * lbf_to_N  ->  impulse,True,True,True,function 'delta_v' returns m/s but this value has unit s·lbf/kg
+thrust_conversion,3,3,delta_v,9,impulse  ->  impulse * mutant_factor,True,True,True,function 'delta_v' returns m/s but this value has unit kg·m/(s·lbf)
+thrust_conversion,4,3,delta_v,9,mass  ->  mass * mutant_factor,True,True,True,function 'delta_v' returns m/s but this value has unit m·lbf/(kg·s)
+thrust_conversion,5,2,position_error,13,"delta_v(impulse, mass) * coast  ->  delta_v(impulse, mass) * coast^2",True,True,True,function 'position_error' returns m but this value has unit m·s
+thrust_conversion,6,4,position_error,13,"delta_v(impulse, mass)  ->  delta_v(mass, impulse)",True,True,True,argument 2 of 'delta_v' (parameter 'mass') must have unit kg but has unit s·lbf
+thrust_conversion,7,3,position_error,13,impulse  ->  impulse * mutant_factor,True,True,True,argument 1 of 'delta_v' (parameter 'impulse') must have unit s·lbf but has unit kg·s
+thrust_conversion,8,3,position_error,13,mass  ->  mass * mutant_factor,True,True,True,argument 2 of 'delta_v' (parameter 'mass') must have unit kg but has unit kg^2/lbf
+thrust_conversion,9,3,position_error,13,coast  ->  coast * mutant_factor,True,True,True,function 'position_error' returns m but this value has unit kg·m/lbf

@@ -1,0 +1,2 @@
+builtin_unitless.dg:4:12: error: the argument of 'sin' must be unitless but has unit m
+    in expression: sin(x)

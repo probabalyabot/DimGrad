@@ -1,0 +1,24 @@
+// Find the launch speed that reaches a target distance: Newton's method on
+// miss(v) = range(v) - target. The update divides a length by a derivative
+// with respect to a speed, so the step is a speed.
+
+unit m, s;
+const g: m/s^2 = 9.81;
+
+fn miss(v: m/s, angle: 1, target: m) -> m {
+    return v^2 * sin(2 * angle) / g - target;
+}
+
+grad miss wrt v;
+
+fn aim_step(v: m/s, angle: 1, target: m) -> m/s {
+    return v - miss(v, angle, target) / miss_grad_v(v, angle, target);
+}
+
+fn aim(v0: m/s, angle: 1, target: m) -> m/s {
+    let v = v0;
+    for i in 0..8 {
+        v = aim_step(v, angle, target);
+    }
+    return v;
+}

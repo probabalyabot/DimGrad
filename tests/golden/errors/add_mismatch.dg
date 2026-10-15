@@ -1,0 +1,5 @@
+unit m, s;
+
+fn bad(x: m, t: s) -> m {
+    return x + t;
+}

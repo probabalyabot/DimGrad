@@ -1,0 +1,5 @@
+unit m;
+
+fn bad(x: m) -> m {
+    let y = x;
+}

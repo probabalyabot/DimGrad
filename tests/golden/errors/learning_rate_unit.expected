@@ -1,0 +1,4 @@
+learning_rate_unit.dg:13:14: error: cannot subtract 1 from m
+    in expression: x - eta * f_grad_x(x)
+    left side:  x : m
+    right side: eta * f_grad_x(x) : 1

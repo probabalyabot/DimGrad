@@ -1,0 +1,5 @@
+unit m;
+
+fn bad(x: m) -> m {
+    return x % 2;
+}

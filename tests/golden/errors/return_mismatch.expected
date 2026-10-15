@@ -1,0 +1,2 @@
+return_mismatch.dg:5:5: error: function 'energy' returns J (= kg·m^2/s^2) but this value has unit kg·m/s
+    in statement: return mass * v

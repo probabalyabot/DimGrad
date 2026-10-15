@@ -1,0 +1,14 @@
+// A learning rate declared with the wrong unit: it must be m^2/J.
+unit kg, m, s;
+unit J = kg*m^2/s^2;
+const stiffness: J/m^2 = 50.0;
+
+fn f(x: m) -> J {
+    return 0.5 * stiffness * x^2;
+}
+
+grad f wrt x;
+
+fn gd_step(x: m, eta: m/J) -> m {
+    return x - eta * f_grad_x(x);
+}

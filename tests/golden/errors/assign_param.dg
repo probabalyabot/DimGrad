@@ -1,0 +1,12 @@
+unit m;
+const c: m = 1.0;
+
+fn bad(x: m) -> m {
+    x = 2 * x;
+    c = x;
+    for i in 0..2 {
+        i = 1;
+    }
+    z = x;
+    return x;
+}

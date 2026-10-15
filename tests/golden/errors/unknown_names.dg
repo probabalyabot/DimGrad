@@ -1,0 +1,16 @@
+unit m;
+
+fn pair(a: m, b: m) -> m {
+    return a + b;
+}
+
+fn bad(x: m, t: sec) -> m {
+    let y = x + offset;
+    let z = helper(x);
+    let w = sqrt(x, x);
+    let d = bad_grad_x(x);
+    return pair(x);
+}
+
+grad missing wrt x;
+grad bad wrt y;

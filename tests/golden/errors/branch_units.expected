@@ -1,0 +1,2 @@
+branch_units.dg:8:9: error: cannot assign s to 'y', which has unit m
+    in statement: y = t

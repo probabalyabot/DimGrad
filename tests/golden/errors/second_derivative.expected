@@ -1,0 +1,1 @@
+second_derivative.dg:13:1: error: cannot differentiate 'slope': it uses a gradient function, and second derivatives are not supported

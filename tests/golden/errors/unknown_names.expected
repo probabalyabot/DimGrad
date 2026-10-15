@@ -1,0 +1,9 @@
+unknown_names.dg:7:17: error: unknown unit 'sec'
+unknown_names.dg:8:17: error: undefined variable 'offset'
+unknown_names.dg:9:13: error: unknown function 'helper'
+unknown_names.dg:10:13: error: 'sqrt' expects 1 argument but got 2
+unknown_names.dg:11:13: error: unknown function 'bad_grad_x'
+    to use a gradient, declare it first: grad bad wrt x;
+unknown_names.dg:12:12: error: 'pair' expects 2 arguments but got 1
+unknown_names.dg:15:1: error: cannot take the gradient of unknown function 'missing'
+unknown_names.dg:16:1: error: 'y' is not a parameter of 'bad'

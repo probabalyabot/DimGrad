@@ -1,0 +1,4 @@
+subtract_mismatch.dg:4:15: error: cannot subtract s from m
+    in expression: x - t
+    left side:  x : m
+    right side: t : s

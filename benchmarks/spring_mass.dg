@@ -1,0 +1,25 @@
+// Mass on a spring: position after 100 steps of semi-implicit Euler, and the total energy.
+
+unit kg, m, s;
+unit N = kg*m/s^2;
+unit J = N*m;
+
+fn position(x0: m, v0: m/s, k: N/m, mass: kg, dt: s) -> m {
+    let x = x0;
+    let v = v0;
+    for i in 0..100 {
+        let a = -k * x / mass;
+        v = v + a * dt;
+        x = x + v * dt;
+    }
+    return x;
+}
+
+fn total_energy(x: m, v: m/s, k: N/m, mass: kg) -> J {
+    return 0.5 * mass * v^2 + 0.5 * k * x^2;
+}
+
+grad position wrt x0;
+grad position wrt k;
+grad total_energy wrt x;
+grad total_energy wrt v;

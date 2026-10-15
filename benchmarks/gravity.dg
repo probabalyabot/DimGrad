@@ -1,0 +1,18 @@
+// Newtonian gravity: the derivative of the potential energy with respect to
+// distance is a force, and comes out in newtons.
+
+unit kg, m, s;
+unit N = kg*m/s^2;
+unit J = N*m;
+const G: N*m^2/kg^2 = 6.6743e-11;
+
+fn potential(r: m, m1: kg, m2: kg) -> J {
+    return -G * m1 * m2 / r;
+}
+
+fn orbital_speed(r: m, central: kg) -> m/s {
+    return sqrt(G * central / r);
+}
+
+grad potential wrt r;
+grad orbital_speed wrt r;

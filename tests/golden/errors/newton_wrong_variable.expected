@@ -1,0 +1,4 @@
+newton_wrong_variable.dg:11:14: error: cannot subtract s from m
+    in expression: x - g(x, t) / g_grad_t(x, t)
+    left side:  x : m
+    right side: g(x, t) / g_grad_t(x, t) : s

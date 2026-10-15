@@ -1,0 +1,12 @@
+unit m;
+const c: m = 1.0;
+
+fn bad(x: m) -> m {
+    let x = c;
+    let c = x;
+    return x;
+}
+
+fn bad(y: m) -> m {
+    return y;
+}

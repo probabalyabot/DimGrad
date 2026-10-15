@@ -1,0 +1,4 @@
+feet_metres.dg:5:20: error: cannot add ft and m
+    in expression: reading + correction
+    left side:  reading : ft
+    right side: correction : m

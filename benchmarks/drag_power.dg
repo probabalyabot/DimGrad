@@ -1,0 +1,17 @@
+// Aerodynamic drag: power needed at a speed, and the speed reached with a given power.
+
+unit kg, m, s;
+unit W = kg*m^2/s^3;
+const drag_coeff: 1 = 0.3;
+
+fn power(v: m/s, rho: kg/m^3, area: m^2) -> W {
+    return 0.5 * rho * drag_coeff * area * v^3;
+}
+
+fn top_speed(p: W, rho: kg/m^3, area: m^2) -> m/s {
+    return cbrt(2 * p / (rho * drag_coeff * area));
+}
+
+grad power wrt v;
+grad top_speed wrt p;
+grad top_speed wrt area;

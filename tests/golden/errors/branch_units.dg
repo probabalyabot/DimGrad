@@ -1,0 +1,11 @@
+unit m, s;
+
+fn bad(x: m, t: s) -> m {
+    let y = x;
+    if (x > 0) {
+        y = 2 * x;
+    } else {
+        y = t;
+    }
+    return y;
+}

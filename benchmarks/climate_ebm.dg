@@ -1,0 +1,22 @@
+// Zero-dimensional energy-balance climate model, explicit Euler over one year of
+// daily steps (the kind of fixed-iteration climate solver used as a case study in [23]).
+// The units of the parameters are our own assignment.
+
+unit kg, m, s, K;
+unit W = kg*m^2/s^3;
+const sigma: W/m^2/K^4 = 5.670374419e-8;
+const emissivity: 1 = 0.612;
+
+fn temperature(T0: K, solar: W/m^2, albedo: 1, heat_capacity: W*s/m^2/K, dt: s) -> K {
+    let T = T0;
+    for i in 0..365 {
+        let absorbed = solar * (1 - albedo) / 4;
+        let emitted = emissivity * sigma * T^4;
+        T = T + dt * (absorbed - emitted) / heat_capacity;
+    }
+    return T;
+}
+
+grad temperature wrt T0;
+grad temperature wrt solar;
+grad temperature wrt albedo;

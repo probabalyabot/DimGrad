@@ -1,0 +1,22 @@
+// Newton's method for the root of g(x) = x^2 - a, i.e. a square root.
+// The step x - g/g' is only valid because g/g' has the unit of x (Section 5.4).
+
+unit m;
+
+fn g(x: m, a: m^2) -> m^2 {
+    return x^2 - a;
+}
+
+grad g wrt x;
+
+fn newton_step(x: m, a: m^2) -> m {
+    return x - g(x, a) / g_grad_x(x, a);
+}
+
+fn root(x0: m, a: m^2) -> m {
+    let x = x0;
+    for i in 0..6 {
+        x = newton_step(x, a);
+    }
+    return x;
+}

@@ -1,0 +1,9 @@
+unit m;
+
+fn bad(x: m) -> m {
+    let acc = x;
+    for i in 0..3 {
+        acc = acc * x;
+    }
+    return acc;
+}

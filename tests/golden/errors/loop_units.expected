@@ -1,0 +1,2 @@
+loop_units.dg:6:9: error: cannot assign m^2 to 'acc', which has unit m
+    in statement: acc = acc * x

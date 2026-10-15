@@ -1,0 +1,4 @@
+call_argument.dg:9:23: error: argument 1 of 'energy' (parameter 'mass') must have unit kg but has unit m/s
+    in expression: energy(v, mass)
+call_argument.dg:9:26: error: argument 2 of 'energy' (parameter 'v') must have unit m/s but has unit kg
+    in expression: energy(v, mass)

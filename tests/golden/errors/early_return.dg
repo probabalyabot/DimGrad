@@ -1,0 +1,8 @@
+unit m;
+
+fn magnitude(x: m) -> m {
+    if (x > 0) {
+        return x;
+    }
+    return -x;
+}

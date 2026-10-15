@@ -1,0 +1,5 @@
+unit m, s;
+
+fn bad(area: m^2, t: s) -> m {
+    return sqrt(area) + sqrt(t);
+}

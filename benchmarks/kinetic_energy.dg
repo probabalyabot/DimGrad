@@ -1,0 +1,12 @@
+// Kinetic energy: the sample program of Section 4.1.
+// d energy / d v is a momentum; d energy / d mass is a specific energy.
+
+unit kg, m, s;
+unit J = kg*m^2/s^2;
+
+fn energy(mass: kg, v: m/s) -> J {
+    return 0.5 * mass * v * v;
+}
+
+grad energy wrt v;
+grad energy wrt mass;

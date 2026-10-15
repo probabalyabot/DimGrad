@@ -1,0 +1,4 @@
+sqrt_fraction.dg:4:23: error: cannot add m and s^(1/2)
+    in expression: sqrt(area) + sqrt(t)
+    left side:  sqrt(area) : m
+    right side: sqrt(t) : s^(1/2)

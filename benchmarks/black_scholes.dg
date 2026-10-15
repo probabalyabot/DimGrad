@@ -1,0 +1,16 @@
+// Black-Scholes price of a European call. vol*sqrt(expiry) must be unitless,
+// so volatility has the unit 1/yr^(1/2): this exercises fractional exponents.
+
+unit usd, yr;
+
+fn call_price(spot: usd, strike: usd, rate: 1/yr, vol: 1/yr^(1/2), expiry: yr) -> usd {
+    let sd = vol * sqrt(expiry);
+    let d1 = (log(spot / strike) + (rate + 0.5 * vol^2) * expiry) / sd;
+    let d2 = d1 - sd;
+    return spot * normcdf(d1) - strike * exp(-rate * expiry) * normcdf(d2);
+}
+
+grad call_price wrt spot;
+grad call_price wrt vol;
+grad call_price wrt rate;
+grad call_price wrt expiry;

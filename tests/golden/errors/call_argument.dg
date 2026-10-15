@@ -1,0 +1,10 @@
+unit kg, m, s;
+unit J = kg*m^2/s^2;
+
+fn energy(mass: kg, v: m/s) -> J {
+    return 0.5 * mass * v * v;
+}
+
+fn twice(mass: kg, v: m/s) -> J {
+    return 2 * energy(v, mass);
+}

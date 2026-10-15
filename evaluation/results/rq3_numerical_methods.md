@@ -1,0 +1,21 @@
+# RQ3: units of numerical-method updates
+
+15 of 15 cases behave as derived by hand.
+
+| method | case | expected | outcome | as expected | detail |
+|---|---|---|---|---|---|
+| Newton | x - g/g'  (derivative with respect to x) | accept | accept | yes |  |
+| Newton | derivative with respect to the wrong variable | reject | reject | yes | cannot subtract s from m |
+| Newton | division left out: x - g | reject | reject | yes | cannot subtract m^2 from m |
+| Newton | quotient inverted: x - g'/g | reject | reject | yes | cannot subtract 1/m from m |
+| Gradient descent | learning rate declared with ? | accept | accept | yes | solved: s^2/kg (matches the hand result) |
+| Gradient descent | learning rate declared as m^2/J | accept | accept | yes |  |
+| Gradient descent | learning rate declared unitless | reject | reject | yes | cannot subtract kg·m/s^2 from m |
+| Gradient descent | learning rate declared as m/J | reject | reject | yes | cannot subtract 1 from m |
+| Gradient descent | function value used instead of its gradient | reject | reject | yes | cannot subtract m^2 from m |
+| Gradient descent | learning rate left out: x - f' | reject | reject | yes | cannot subtract kg·m/s^2 from m |
+| Euler | step size declared with ? | accept | accept | yes | solved: s (matches the hand result) |
+| Euler | step size declared as s | accept | accept | yes |  |
+| Euler | step size declared unitless | reject | reject | yes | cannot add K and K/s |
+| Euler | step size left out: y + f(y) | reject | reject | yes | cannot add K and K/s |
+| Euler | state used instead of its rate of change: y + h*y | reject | reject | yes | cannot add K and s·K |

@@ -1,0 +1,14 @@
+benchmark,gradient,points,ad_max_rel_error,fd_max_rel_error
+drag_power,power_grad_v,8,2.0831780429531783e-16,1.645225273449003e-11
+drag_power,top_speed_grad_p,8,3.9838897426963514e-16,3.047636846523744e-11
+gradient_descent,f_grad_x,3,0.0,7.333653684327145e-12
+gravity,potential_grad_r,4,0.0,4.2584099863014527e-11
+gravity,orbital_speed_grad_r,4,3.2776666209138815e-16,2.633023041726219e-11
+kinetic_energy,energy_grad_v,9,0.0,3.4922160401557837e-12
+kinetic_energy,energy_grad_mass,9,0.0,2.6075339418538433e-11
+newton_root,g_grad_x,4,0.0,2.7501334542989753e-11
+pendulum,period_grad_len,3,0.0,9.430937017173476e-12
+range_newton,miss_grad_v,8,1.518254045618508e-16,3.042416883850168e-11
+spring_mass,total_energy_grad_x,16,0.0,2.2917889808127256e-11
+spring_mass,total_energy_grad_v,16,0.0,2.444563070487978e-11
+thrust_conversion,delta_v_grad_impulse,4,1.3181369670715549e-16,4.126691402810917e-12

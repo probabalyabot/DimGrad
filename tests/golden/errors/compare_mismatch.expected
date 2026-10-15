@@ -1,0 +1,2 @@
+compare_mismatch.dg:4:11: error: cannot compare m and s
+    in condition: x > t

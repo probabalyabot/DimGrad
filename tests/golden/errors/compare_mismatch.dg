@@ -1,0 +1,9 @@
+unit m, s;
+
+fn bad(x: m, t: s) -> m {
+    if (x > t) {
+        return x;
+    } else {
+        return 2 * x;
+    }
+}

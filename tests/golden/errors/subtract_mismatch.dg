@@ -1,0 +1,6 @@
+unit m, s;
+
+fn bad(x: m, t: s) -> m {
+    let d = x - t;
+    return x;
+}

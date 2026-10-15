@@ -1,0 +1,5 @@
+unit m;
+
+fn down(x: m) -> m {
+    return down(x / 2);
+}

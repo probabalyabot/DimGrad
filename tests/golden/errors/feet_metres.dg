@@ -1,0 +1,6 @@
+// A reading in feet added to a correction in metres.
+unit m, ft;
+
+fn altitude(reading: ft, correction: m) -> m {
+    return reading + correction;
+}

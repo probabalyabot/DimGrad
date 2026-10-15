@@ -1,0 +1,12 @@
+// A Newton step for x that divides by the derivative with respect to t.
+unit m, s;
+
+fn g(x: m, t: s) -> m^2 {
+    return x^2 - x * x * t / t;
+}
+
+grad g wrt t;
+
+fn newton_step(x: m, t: s) -> m {
+    return x - g(x, t) / g_grad_t(x, t);
+}

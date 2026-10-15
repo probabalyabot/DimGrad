@@ -1,0 +1,1 @@
+syntax_missing_semicolon.dg:5:5: error: expected ';' but found 'return'

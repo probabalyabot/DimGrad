@@ -1,0 +1,1 @@
+early_return.dg:5:9: error: 'return' must be the last statement of the function or of a final if/else branch

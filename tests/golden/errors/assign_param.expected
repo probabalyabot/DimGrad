@@ -1,0 +1,4 @@
+assign_param.dg:5:5: error: cannot assign to parameter 'x'
+assign_param.dg:6:5: error: cannot assign to constant 'c'
+assign_param.dg:8:9: error: cannot assign to loop variable 'i'
+assign_param.dg:10:5: error: assignment to undefined variable 'z' (declare it with 'let')

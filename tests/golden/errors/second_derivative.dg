@@ -1,0 +1,13 @@
+unit m;
+
+fn g(x: m) -> m^2 {
+    return x^2;
+}
+
+grad g wrt x;
+
+fn slope(x: m) -> m {
+    return g_grad_x(x);
+}
+
+grad slope wrt x;
